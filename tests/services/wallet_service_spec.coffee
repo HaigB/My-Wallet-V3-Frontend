@@ -10,8 +10,12 @@ describe "walletServices", () ->
   beforeEach angular.mock.module("walletApp")
 
   beforeEach ->
+<<<<<<< HEAD
     angular.mock.inject ($injector, _$rootScope_, $q, $cookies) ->
       $rootScope = _$rootScope_
+=======
+    angular.mock.inject ($injector, $q, $cookies) ->
+>>>>>>> refs/remotes/origin/v1.4.8-p1
       Wallet = $injector.get("Wallet")
       MyBlockchainSettings = $injector.get("MyBlockchainSettings")
       MyBlockchainApi = $injector.get("MyBlockchainApi")

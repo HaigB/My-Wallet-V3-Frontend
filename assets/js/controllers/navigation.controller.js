@@ -86,8 +86,13 @@ function NavigationCtrl ($scope, $rootScope, $interval, $timeout, $cookies, Wall
 
   $scope.logout = () => {
     let isSynced = Wallet.isSynchronizedWithServer();
+<<<<<<< HEAD
     let message = isSynced ? 'CONFIRM_LOGOUT' : 'CONFIRM_FORCE_LOGOUT';
     Alerts.confirm(message, { modalClass: 'top' }).then(() => {
+=======
+    let message = isSynced ? 'ARE_YOU_SURE_LOGOUT' : 'CHANGES_BEING_SAVED';
+    Alerts.confirm(message, {}, 'top').then(() => {
+>>>>>>> refs/remotes/origin/v1.4.8-p1
       Wallet.logout();  // Refreshes the browser, so won't return
     });
   };

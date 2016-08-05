@@ -41,7 +41,10 @@ module.exports = function (config) {
       'assets/js/core/*.js',
       'tests/filters/*.coffee',
       'tests/controllers/*.coffee',
+<<<<<<< HEAD
       'tests/components/*.coffee',
+=======
+>>>>>>> refs/remotes/origin/v1.4.8-p1
       'tests/services/**/*.coffee',
       'tests/directives/*.coffee',
       'tests/mocks/**/*.coffee',

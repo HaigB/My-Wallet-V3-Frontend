@@ -81,6 +81,11 @@ function Wallet ($http, $window, $timeout, $location, Alerts, MyWallet, MyBlockc
 
   wallet.login = (uid, password, two_factor_code, needsTwoFactorCallback, successCallback, errorCallback) => {
     let didLogin = (result) => {
+<<<<<<< HEAD
+=======
+      let guid = result.guid;
+      wallet.status.isLoggedIn = true;
+>>>>>>> refs/remotes/origin/v1.4.8-p1
       wallet.status.didUpgradeToHd = wallet.my.wallet.isUpgradedToHD;
       if (wallet.my.wallet.isUpgradedToHD) {
         wallet.status.didConfirmRecoveryPhrase = wallet.my.wallet.hdwallet.isMnemonicVerified;
@@ -156,7 +161,11 @@ function Wallet ($http, $window, $timeout, $location, Alerts, MyWallet, MyBlockc
         $rootScope.$safeApply();
       });
       if (successCallback != null) {
+<<<<<<< HEAD
         successCallback(result.guid);
+=======
+        successCallback(guid);
+>>>>>>> refs/remotes/origin/v1.4.8-p1
       }
       $rootScope.$safeApply();
     };

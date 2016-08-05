@@ -1,4 +1,5 @@
 describe "walletServices", () ->
+  pending()
   Wallet = undefined
   errors = undefined
   callbacks = undefined
@@ -188,7 +189,10 @@ describe "walletServices", () ->
     )
 
   describe "signup", ->
+<<<<<<< HEAD:tests/services/wallet/signup_login_sync_upgrade.coffee
     pending()
+=======
+>>>>>>> refs/remotes/origin/v1.4.8-p1:tests/services/wallet/signup_login_2ndpw_sync_upgrade.coffee
 
     it "should create a wallet", ->
       callbacks = {
