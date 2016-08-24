@@ -6,7 +6,7 @@
   "license": "",
   "private": true,
   "dependencies": {
-    "angular": "1.4.*",
+    "angular": "1.5.*",
     "angular-mocks": "1.4.*",
     "angular-animate": "1.4.*",
     "angular-ui-router": "0.2.*",
@@ -16,20 +16,26 @@
     "angular-ui-select": "0.14.*",
     "angular-sanitize": "1.4.*",
     "angular-qr": "0.2.*",
-    "angular-translate": "2.7.*",
+    "angular-translate": "2.11.*",
     "angular-translate-loader-static-files": "2.7.*",
     "angular-inview": "1.5.*",
     "browserdetection": "sjors/browser-detection#webkit",
     "bc-qr-reader": "0.2.*",
     "bootstrap-sass": "3.3.*",
-    "blockchain-wallet": "3.18 >=3.18.2",
+<<<<<<< HEAD
+    "blockchain-wallet": "3.21.*",
     "bc-phone-number": "5.0.11",
     "oclazyload": "1.0.*"
+=======
+    "blockchain-wallet": "3.17.1",
+    "bc-phone-number": "5.0.11"
+>>>>>>> refs/remotes/origin/v1.4.8-p1
   },
   "devDependencies": {
     "compare-versions": "^2.0.1"
   },
   "resolutions": {
-    "angular": "1.4.*"
+    "angular": "1.5.*",
+    "angular-translate": "2.11.*"
   }
 }

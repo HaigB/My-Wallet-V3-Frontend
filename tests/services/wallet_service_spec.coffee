@@ -4,13 +4,21 @@ describe "walletServices", () ->
   mockObserver = undefined
   errors = undefined
   MyBlockchainSettings = undefined
+  MyBlockchainApi = undefined
+  $rootScope = undefined
 
   beforeEach angular.mock.module("walletApp")
 
   beforeEach ->
+<<<<<<< HEAD
+    angular.mock.inject ($injector, _$rootScope_, $q, $cookies) ->
+      $rootScope = _$rootScope_
+=======
     angular.mock.inject ($injector, $q, $cookies) ->
+>>>>>>> refs/remotes/origin/v1.4.8-p1
       Wallet = $injector.get("Wallet")
       MyBlockchainSettings = $injector.get("MyBlockchainSettings")
+      MyBlockchainApi = $injector.get("MyBlockchainApi")
       Alerts = $injector.get('Alerts')
 
       spyOn($cookies, "get").and.callFake((name) ->
@@ -47,6 +55,20 @@ describe "walletServices", () ->
           transactions: () ->
             [{ result: 1, txType: 'received' }]
           fetchTxs: () ->
+        fetchAccountInfo: () ->
+          then: (cb) ->
+            cb({
+              password_hint1: "Same as username"
+              language: "en"
+              currency: "USD"
+              btc_currency: "BTC"
+              block_tor_ips: 0
+              my_ip: "123.456.789.012"
+            })
+        accountInfo:
+          email: "steve@me.com"
+          mobile: "+1234"
+          currency: "USD"
 
       return
 
@@ -133,7 +155,7 @@ describe "walletServices", () ->
 
     it "should be set after loading", inject((Wallet) ->
       Wallet.login()
-      expect(Wallet.user.mobile.number).toEqual("12345678")
+      expect(Wallet.user.mobileNumber).toEqual("+1234")
     )
 
     it "should allow change", inject((Wallet) ->
@@ -492,3 +514,36 @@ describe "walletServices", () ->
     it "should be null if not logged in", ->
       Wallet.status.isLoggedIn = false
       expect(Wallet.accounts()).toBe(null)
+
+  describe "exportHistory", ->
+    beforeEach ->
+      Wallet.settings.currency = { code: 'USD' }
+      MyBlockchainApi.exportHistory = () ->
+      spyOn(Alerts, 'displayError')
+
+    describe "with transactions", ->
+      beforeEach ->
+        history = [{ sent: 1, receive: 0, tx: 'asdf' }, { sent: 0, receive: 2, tx: 'qwer' }]
+        spyOn(MyBlockchainApi, 'exportHistory').and.returnValue(history)
+
+      it "should call API.exportHistory with correct arguments", ->
+        Wallet.exportHistory('01/01/2015', '01/01/2016', ['1asdf'])
+        expect(MyBlockchainApi.exportHistory).toHaveBeenCalledWith(['1asdf'], 'USD', { start: '01/01/2015', end: '01/01/2016' })
+
+      it "should convert to csv with notes and broadcast broadcast download event", (done) ->
+        spyOn(Wallet, 'getNote').and.callFake((hash) -> hash == 'asdf' && 'test_note')
+        spyOn($rootScope, '$broadcast')
+        Wallet.exportHistory().then (data) ->
+          expect(data).toEqual('sent,receive,tx,note\n1,0,asdf,test_note\n0,2,qwer,')
+          done()
+        $rootScope.$digest()
+
+    describe "with no transactions", ->
+      beforeEach ->
+        spyOn(MyBlockchainApi, 'exportHistory').and.returnValue([])
+
+      it "should show an error", (done) ->
+        Wallet.exportHistory().finally ->
+          expect(Alerts.displayError).toHaveBeenCalledWith('NO_HISTORY')
+          done()
+        $rootScope.$digest()

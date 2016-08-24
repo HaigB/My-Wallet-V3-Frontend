@@ -20,7 +20,12 @@ body {
 }
 
 .center { text-align: center; }
-
+.center-self { 
+  transform: translate(-50%,-50%); 
+  -ms-transform: translate(-50%,-50%); 
+  -webkit-transform: translate(-50%,-50%); 
+  -moz-transform: translate(-50%,-50%); 
+}
 .display-block { display: block; }
 .display-inline-block { display: inline-block; }
 
@@ -72,3 +77,9 @@ noscript {
 .ph-form { padding: 0 2em; }
 
 .mw { max-width: 100%; }
+
+@media (max-width: 768px) {
+  hidden-xs {
+    display: none;
+  }
+}

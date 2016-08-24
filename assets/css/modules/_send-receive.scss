@@ -197,7 +197,6 @@
         > span.account {
           text-align: left;
           @media (max-width: 768px) {
-            max-width: 200px;
             overflow: hidden;
             text-overflow: ellipsis;
           }
@@ -205,12 +204,9 @@
             color: $aaa !important;
           }
         }
-        > span:last-of-type {
-          text-align: right;
-        }
         .helper {
           position: absolute;
-          right: -27px;
+          right: -25px;
           top: -2px;
         }
       }
@@ -311,10 +307,10 @@
       margin-top: 0px;
     }
   }
-}
-
-[uib-popover-popup].popover.request-popover {
-  display: none !important; //popovers dont play nice on mobile
+  
+  .amount .form-control {
+    min-width: 0;
+  }
 }
 
 .receive-code {

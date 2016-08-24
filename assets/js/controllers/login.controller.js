@@ -67,11 +67,26 @@ function LoginCtrl ($scope, $rootScope, $location, $log, $http, Wallet, WalletNe
     const needs2FA = () => {
       $scope.busy = false;
       $scope.didAsk2FA = true;
+<<<<<<< HEAD
     };
     if ($scope.settings.needs2FA) {
       Wallet.login($scope.uid, $scope.password, $scope.twoFactorCode, () => {}, () => {}, error);
     } else {
       Wallet.login($scope.uid, $scope.password, null, needs2FA, () => {}, error);
+=======
+    };
+    const success = (guid) => {
+      $scope.busy = false;
+      if ($scope.autoReload && $cookies.get('reload.url')) {
+        $location.url($cookies.get('reload.url'));
+        $cookies.remove('reload.url');
+      }
+    };
+    if ($scope.settings.needs2FA) {
+      Wallet.login($scope.uid, $scope.password, $scope.twoFactorCode, () => {}, success, error);
+    } else {
+      Wallet.login($scope.uid, $scope.password, null, needs2FA, success, error);
+>>>>>>> refs/remotes/origin/v1.4.8-p1
     }
     if ($scope.autoReload && $scope.password != null && $scope.password !== '') {
       $cookies.put('password', $scope.password);

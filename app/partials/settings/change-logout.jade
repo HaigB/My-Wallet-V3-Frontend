@@ -1,4 +1,4 @@
-form(role="form" name="form" novalidate ng-submit="setLogoutTime()")
+form(role="form" name="form" novalidate ng-submit="form.$valid && setLogoutTime()")
   .form-group(ng-class="{'has-error': form.$invalid && form.$dirty}")
     label.control-label(translate="AUTO_LOGOUT")
     div
@@ -6,7 +6,7 @@ form(role="form" name="form" novalidate ng-submit="setLogoutTime()")
         type="number"
         name="logoutTime"
         ng-model="fields.logoutTime"
-        min="2"
+        min="1"
         max="1440"
         required
         focus-when="active")

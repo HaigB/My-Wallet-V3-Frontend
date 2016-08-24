@@ -3,9 +3,9 @@ angular
   .module('walletApp')
   .directive('confirmRecoveryPhrase', confirmRecoveryPhrase);
 
-confirmRecoveryPhrase.$inject = ['$uibModal', 'Wallet'];
+confirmRecoveryPhrase.$inject = ['$uibModal', 'Wallet', 'Alerts'];
 
-function confirmRecoveryPhrase ($uibModal, Wallet) {
+function confirmRecoveryPhrase ($uibModal, Wallet, Alerts) {
   const directive = {
     restrict: 'E',
     replace: true,
@@ -16,10 +16,23 @@ function confirmRecoveryPhrase ($uibModal, Wallet) {
   return directive;
 
   function link (scope, elem, attrs) {
-    scope.confirmRecoveryPhrase = () => $uibModal.open({
-      templateUrl: 'partials/confirm-recovery-phrase-modal.jade',
-      controller: 'ConfirmRecoveryPhraseCtrl',
-      windowClass: 'bc-modal'
-    });
+    scope.confirmRecoveryPhrase = () => {
+      let openModal = () => $uibModal.open({
+        templateUrl: 'partials/confirm-recovery-phrase-modal.jade',
+        controller: 'ConfirmRecoveryPhraseCtrl',
+        windowClass: 'bc-modal'
+      });
+      let validatePw = (result) => {
+        if (Wallet.isCorrectMainPassword(result)) {
+          openModal();
+        } else {
+          Alerts.displayError('INCORRECT_PASSWORD');
+          scope.confirmRecoveryPhrase();
+        }
+      };
+      Wallet.settings.secondPassword
+        ? openModal()
+        : Alerts.prompt('MAIN_PW_REQUIRED', { type: 'password' }).then(validatePw);
+    };
   }
 }
